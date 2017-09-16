@@ -10,7 +10,7 @@ Module.register("MMM-socialbicycles", {
     defaults: {
 		apiBase: 'https://app.socialbicycles.com/api/',
 		stationID: 2039,
-		stationName: 'socialbike'
+		stationName: 'socialbike',
 		showBikes: true,
 		nob: '',
         reload: 1 * 60 * 1000       // every minute
