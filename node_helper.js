@@ -1,11 +1,11 @@
 /* Magic Mirror
- * Module: MMM-KVV
+ * Module: MMM-socialbicycles
  *
- * By yo-less
+ * By 0lek
+ * based on MMM-nextbike
  * MIT Licensed.
  */
 
-var parseString = require('xml2js').parseString;
 const request = require('request');
 const NodeHelper = require("node_helper");
 
@@ -25,9 +25,7 @@ module.exports = NodeHelper.create({
 	 */
 	
 	getParams: function() {
-			var params = "?city=";
-			params += this.config.cityID;
-			params += "&place=";
+			var params = "hubs/";
 			params += this.config.stationID;
 			return params;
 	},
@@ -35,17 +33,17 @@ module.exports = NodeHelper.create({
     socketNotificationReceived: function(notification, payload) {
         if(notification === 'CONFIG'){
             this.config = payload;
-			var nextbike_url = this.config.apiBase + this.getParams();
-			this.getData(nextbike_url, this.config.stationID);
+			var socialbike_url = this.config.apiBase + this.getParams();
+			this.getData(socialbike_url, this.config.stationID);
         }
     },
 
 	parseData: function(input) {
-				var nextbikeData = "";
+				var socialBikeData = "";
 				parseString(input, function (err, result) {
-				nextbikeData = JSON.parse(JSON.stringify(result));
+				socialBikeData = JSON.parse(JSON.stringify(result));
 				});
-				return nextbikeData;
+				return socialBikeData;
 	},
 	
 	
@@ -54,7 +52,7 @@ module.exports = NodeHelper.create({
 	        if (response.statusCode === 200) {
 				this.sendSocketNotification("BIKES" + stationID, this.parseData(body));
 				} else {
-                console.log("Error getting nextbike data " + response.statusCode);
+                console.log("Error getting social bicycles data " + response.statusCode);
             }
         });
     }
