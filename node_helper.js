@@ -6,6 +6,7 @@
  * MIT Licensed.
  */
 
+var parseString = require('xml2js').parseString;
 const request = require('request');
 const NodeHelper = require("node_helper");
 
@@ -41,7 +42,7 @@ module.exports = NodeHelper.create({
 	parseData: function(input) {
 				var socialBikeData = "";
 				parseString(input, function (err, result) {
-				socialBikeData = JSON.parse(JSON.stringify(result));
+					socialBikeData = JSON.parse(JSON.stringify(result));
 				});
 				return socialBikeData;
 	},
