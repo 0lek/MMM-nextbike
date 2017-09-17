@@ -30,6 +30,7 @@ Module.register("MMM-socialbicycles", {
 		var self = this;
         Log.info("Starting module: " + this.name);
         this.sendSocketNotification("CONFIG", this.config);
+        Log.info("Sent CONFIG");
 		setInterval(
 			function()
 			{self.sendSocketNotification("CONFIG", self.config);}
