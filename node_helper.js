@@ -32,7 +32,7 @@ module.exports = NodeHelper.create({
 	
     socketNotificationReceived: function(notification, payload) {
         if(notification === 'CONFIG'){
-            this.config = payload;
+            //this.config = payload;
 			var socialbike_url = this.config.apiBase + this.getParams();
 			this.getData(socialbike_url, this.config.stationID);
         }
