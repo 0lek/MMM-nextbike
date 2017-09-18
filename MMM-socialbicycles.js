@@ -10,8 +10,7 @@ Module.register("MMM-socialbicycles", {
     defaults: {
 		apiBase: 'https://app.socialbicycles.com/api/',
 		stationID: 2039,
-		stationName: 'socialbike',
-		showBikes: true,
+		showBikes: false,
 		nob: '',
         reload: 1 * 60 * 1000       // every minute
     },
@@ -40,7 +39,8 @@ Module.register("MMM-socialbicycles", {
 		
     socketNotificationReceived: function (notification, payload) {
 		if (notification === "BIKES" + this.config.stationID) {
-			this.socialBikeData = payload.$;
+			this.socialBikeData = JSON.parse(payload);
+			console.log(payload);
 			this.config.stationName = this.socialBikeData.name;
 			this.updateDom();			
 	    }
@@ -52,11 +52,9 @@ Module.register("MMM-socialbicycles", {
 
 		var wrapper = document.createElement("div");
         var header = document.createElement("header");
-		if (this.config.stationName !== "socialbike") { 
-        header.innerHTML = this.config.stationName;
-		} else {
-		header.innerHTML = this.config.stationName;
-		}
+        header.innerHTML = '<i class="fa fa-bicycle" aria-hidden="true"></i>';
+        header.innerHTML += " ";
+        header.innerHTML += this.config.stationName;
         wrapper.appendChild(header);
 	
 		// Loading data notification
@@ -67,7 +65,9 @@ Module.register("MMM-socialbicycles", {
             text.className = "small dimmed";
             wrapper.appendChild(text);
         
-		} else {
+		}
+		else 
+		{
 			
 		// Create bike table once data is received
 			
@@ -78,27 +78,6 @@ Module.register("MMM-socialbicycles", {
 			table.appendChild(this.createAmountRow());
 			table.appendChild(this.createSpacerRow());
 						
-		// List available bikes via a bike array
-		
-		if (this.config.showBikes)	{	// Make sure user wants to see the bikes
-		
-			if (!this.socialBikeData.bike_numbers){
-				this.hide(10000);						
-			} else {
-				
-				if (this.hidden) {
-					this.show(5000);
-				} 
-				
-				var bikeArray = this.socialBikeData.bike_numbers.split(",");
-				if (!this.config.nob) {this.config.nob = 100;}
-				for (var i=0; (i<bikeArray.length) && (i<this.config.nob);i++){
-					var bikeNumber = bikeArray[i];
-					table.appendChild(this.createDataRow(bikeNumber));	
-				}
-			}
-			
-		}
 			
 		wrapper.appendChild(table);
 				
@@ -126,10 +105,10 @@ Module.register("MMM-socialbicycles", {
 		var amount = document.createElement("td");
 		amount.className = "amountRow";
 		amount.setAttribute("colSpan", "2");
-		if (!this.socialBikeData.bike_numbers){
+		if (!this.socialBikeData.available_bikes){
 			amount.innerHTML = this.translate("NO-BIKES-AVAILABLE");
 		} else {
-			amount.innerHTML = this.translate("BIKES-AVAILABLE") + " " + this.socialBikeData.bikes;
+			amount.innerHTML = this.translate("BIKES-AVAILABLE") + " " + this.socialBikeData.available_bikes;
 		}
 		amountRow.appendChild(amount); 
       	
