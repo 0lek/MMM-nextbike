@@ -17,7 +17,9 @@ Module.register("MMM-socialbicycles", {
 
     getTranslations: function () {
         return {
+        	pl: "translations/pl.json",
             en: "translations/en.json",
+            de: "translations/de.json",
         };
     },
 
