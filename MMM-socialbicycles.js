@@ -1,7 +1,7 @@
 /* Magic Mirror
- * Module: MMM-nextbike
+ * Module: MMM-socialbicycles
  *
- * By yo-less
+ * By 0lek
  * MIT Licensed.
  */
 
