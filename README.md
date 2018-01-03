@@ -10,7 +10,7 @@ This module is based on [MMM-nextbike](https://github.com/yo-less/MMM-nextbike) 
 v1.0.0
 
 ## Languages
-As of version 1.0.0, MMM-nextbike features language support for `German (de)` and `English (en)` mirrors.
+As of version 1.0.0, MMM-socialbicycles features language support for `Polish (pl)`, `German (de)` and `English (en)` mirrors.
 
 ## Prerequisite
 A working installation of [MagicMirror<sup>2</sup>](https://github.com/MichMich/MagicMirror)
@@ -27,7 +27,7 @@ A working installation of [MagicMirror<sup>2</sup>](https://github.com/MichMich/
 3. Execute `npm install`.
 
 ## Module behavior
-Please note that this module auto-creates a module header which displays the name of the chosen nextbike station. <BR>
+Please note that this module auto-creates a module header which displays the name of the chosen socialbicycles station. <BR>
 It is therefore recommended not to add a 'header' entry to your config.js for this module.<P>
 This module automatically disappears from your mirror as soon as a station has run out of bikes. It reappears shortly after the first bike has been returned to your chosen station.<P>
 This module has been programmed to allow for multiple instances. Simply add more MMM-socialbicycles config entries to your config.js file to display multiple stations and configure them according to your needs.
@@ -68,7 +68,7 @@ You'll be looking for a new row with a digit-only name and the domain *app.socia
 ## Licence
 MIT License
 
-Copyright (c) 2016 yo-less / Jens
+Copyright (c) 2017-2018 0lek 
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
