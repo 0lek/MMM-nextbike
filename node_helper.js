@@ -45,13 +45,36 @@ module.exports = NodeHelper.create({
 	},
 	
 	
-    getData: function(options, stationID) {
-		request(options, (error, response, body) => {
-	        if (response.statusCode === 200) {
+//    getData: function(options, stationID) {
+//		request(options, (error, response, body) => {
+//	        if (response.statusCode === 200) {
+//				this.sendSocketNotification("BIKES" + stationID, this.parseData(body));
+//				} else {
+//                console.log("Error getting social bicycles data " + response.statusCode);
+//            }
+//        });
+//    }
+
+	getData: function(options, stationID) {
+		var self = this;
+		
+		
+		request({
+			url: this.options,
+			method: 'GET',
+			headers: {
+		        'Authorization': 'Token ' + this.config.sobiAccessToken,
+		        'Accept-Language': 'en_US',
+		        'Content-Type': 'application/json'
+		    },
+		}, function (error, response, body) {
+			
+			if (!error && response.statusCode == 200) {
 				this.sendSocketNotification("BIKES" + stationID, this.parseData(body));
-				} else {
-                console.log("Error getting social bicycles data " + response.statusCode);
-            }
-        });
-    }
+			}
+			else {
+				console.log("Error getting social bicycles data " + response.statusCode);
+			}
+		});
+
 });
