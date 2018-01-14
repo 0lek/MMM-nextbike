@@ -58,7 +58,6 @@ module.exports = NodeHelper.create({
 	getData: function(options, stationID) {
 		var self = this;
 		
-		
 		request({
 			url: this.options,
 			method: 'GET',
@@ -75,6 +74,6 @@ module.exports = NodeHelper.create({
 			else {
 				console.log("Error getting social bicycles data " + response.statusCode);
 			}
-		});
-
+		})
+	}
 });
