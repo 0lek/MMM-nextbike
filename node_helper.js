@@ -34,6 +34,7 @@ module.exports = NodeHelper.create({
         if(notification === 'CONFIG'){
         	this.config = payload;
 			var socialbike_url = this.config.apiBase + this.getParams();
+			console.log("Getting data: " + this.name);
 			this.getData(socialbike_url, this.config.stationID);
         }
     },
