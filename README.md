@@ -42,11 +42,21 @@ Sample minimum configuration entry for your `~/MagicMirror/config/config.js`:
         position: 'top_left',
         config: {
             stationID: '', 		// Your station ID
+            sobiAccessToken: ''	// You Oauth access token
         }
     } 							// If this isn't your last module, add a comma after the bracket
     
     ...
 
+
+## Getting an access token
+
+Socialbicycles has introduced a mandatory OAuth2 authentication (or maybe I just can't get basic HTTP auth to work :)).
+Anyways, you need an access token. For that you need to register your app here:
+
+https://app.socialbicycles.com/oauth/applications
+
+It's all self-explanatory. You don't need the clientID or clientSecret (for now), only the access token at the bottom.
 
 ## Figuring out the correct cityID and stationID
 

@@ -6,10 +6,8 @@
  * MIT Licensed.
  */
 
-const request = require('request');
-const NodeHelper = require("node_helper");
-
-
+var request = require('request');
+var NodeHelper = require("node_helper");
 
 module.exports = NodeHelper.create({
 
@@ -35,46 +33,40 @@ module.exports = NodeHelper.create({
         	this.config = payload;
 			var socialbike_url = this.config.apiBase + this.getParams();
 			console.log("Getting data: " + this.name);
-			this.getData(socialbike_url, this.config.stationID);
+			
+			var options = {
+				url: socialbike_url,
+				auth: {
+    				'user': null,
+    				'pass': null,
+    				'sendImmediately': true,
+    				'bearer': this.config.sobiAccessToken
+  				}
+			};
+			
+			this.getData(options, this.config.stationID);
         }
     },
 
 	parseData: function(input) {
-				var socialBikeData = "";
-				socialBikeData = JSON.parse(JSON.stringify(input));
-				return socialBikeData;
+		var socialBikeData = "";
+		socialBikeData = JSON.parse(JSON.stringify(input));
+		return socialBikeData;
 	},
 	
+	sendData: function(sobi_data) {
+		var sobi_json = JSON.parse(sobi_data)
+		this.sendSocketNotification("BIKES" + stationID, sobi_json)
+	},
 	
-//    getData: function(options, stationID) {
-//		request(options, (error, response, body) => {
-//	        if (response.statusCode === 200) {
-//				this.sendSocketNotification("BIKES" + stationID, this.parseData(body));
-//				} else {
-//                console.log("Error getting social bicycles data " + response.statusCode);
-//            }
-//        });
-//    }
-
 	getData: function(options, stationID) {
-		var self = this;
-		
-		request({
-			url: this.options,
-			method: 'GET',
-			headers: {
-		        'Authorization': 'Token ' + this.config.sobiAccessToken,
-		        'Accept-Language': 'en_US',
-		        'Content-Type': 'application/json'
-		    },
-		}, function (error, response, body) {
-			
-			if (!error && response.statusCode == 200) {
+		request(options, (error, response, body) => {
+	        if (response.statusCode === 200) {
 				this.sendSocketNotification("BIKES" + stationID, this.parseData(body));
 			}
 			else {
-				console.log("Error getting social bicycles data " + response.statusCode);
-			}
-		})
-	}
+                console.log("Error getting social bicycles data " + response.statusCode);
+            }
+        });
+    }
 });

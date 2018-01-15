@@ -36,13 +36,12 @@ Module.register("MMM-socialbicycles", {
 			function()
 			{self.sendSocketNotification("CONFIG", self.config);}
 			,this.config.reload);
+			 Log.info("SoBi conf reloaded");
     },
-
 		
     socketNotificationReceived: function (notification, payload) {
 		if (notification === "BIKES" + this.config.stationID) {
 			this.socialBikeData = JSON.parse(payload);
-			console.log(payload);
 			this.config.stationName = this.socialBikeData.name;
 			this.updateDom();			
 	    }
@@ -101,7 +100,7 @@ Module.register("MMM-socialbicycles", {
 		return spacerRow;
     },
 	
-		createAmountRow: function () {
+	createAmountRow: function () {
         var amountRow = document.createElement("tr");
 		
 		var amount = document.createElement("td");
